@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
+import {mediaUrl} from '../utils/variables';
 
 const MediaRow = ({file}) => {
   return (
     <tr>
       <td>
-        <img src={file.thumbnails.w160} alt="Title" />
+        <img src={mediaUrl + file.thumbnails.w160} alt="Title" />
       </td>
       <td>
         <h3>{file.title}</h3>

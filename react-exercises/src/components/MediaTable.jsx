@@ -1,12 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import MediaRow from './MediaRow';
+import {baseUrl} from '../utils/variables';
 
 const MediaTable = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
   const getMedia = async () => {
-    const response = await fetch('test.json');
-    setMediaArray(await response.json());
+    const response = await fetch(baseUrl + 'media');
+    const files = await response.json();
+    const filesWithThumbnails = await Promise.all(
+      files.map(async (file) => {
+        const response = await fetch(baseUrl + 'media/' + file.file_id);
+        return await response.json();
+      })
+    );
+    setMediaArray(filesWithThumbnails);
   };
 
   useEffect(() => {
